@@ -1,9 +1,9 @@
-import express,{Request,Response} from 'express';
+import express, { Request, Response } from 'express';
 import * as dotenv from 'dotenv';
 import routes from './routes';
 import cors from 'cors';
 dotenv.config({
-    path : __dirname + "/.env"
+  path: __dirname + "/.env"
 });
 
 const app = express();
@@ -12,7 +12,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use('/api', routes);
 app.use(cors())
 
-app.get('/', (req:Request, res:Response) => {
+app.get('/', (req: Request, res: Response) => {
   res.send('Hello World!');
 });
 

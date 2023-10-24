@@ -5,21 +5,21 @@ import {comparePassword, generateToken, findUniqueUser,createNewUser} from './se
 export const login =async (req: Request,res:Response)=>{
     const { email, password} = req.body
     if( !email){
-        return res.status(400).send({msg: 'Name or email is required'})
+        return res.status(400).send({error: 'Name or email is required'})
     }
     if(!password){
-        return res.status(400).send({msg: 'Password is required'})
+        return res.status(400).send({error: 'Password is required'})
     }
 
     const user = await findUniqueUser(email)
 
     if(!user){
-        return res.status(400).send({msg: 'User does not exist'})
+        return res.status(400).send({error: 'User does not exist'})
     }
 
     const match = comparePassword(password, user.password)
     if(!match){
-        return res.status(400).send({msg: 'Incorrect password'})
+        return res.status(400).send({error: 'Incorrect password'})
     }
 
     const token = generateToken(user)
@@ -34,17 +34,17 @@ export const login =async (req: Request,res:Response)=>{
 export const register =async (req:Request,res:Response)=>{
     const {name, email, password} = req.body
     if(!name){
-        return res.status(400).send({msg: 'Name is required'})
+        return res.status(400).send({error: 'Name is required'})
     }
     if(!email){
-        return res.status(400).send({msg: 'Email is required'})
+        return res.status(400).send({error: 'Email is required'})
     }
     if(!password){
-        return res.status(400).send({msg: 'Password is required'})
+        return res.status(400).send({error: 'Password is required'})
     }
     const user = await findUniqueUser(email)
     if(user){
-        return res.status(400).send({msg: 'Email already exists'})
+        return res.status(400).send({error: 'Email already exists'})
     }
 
 const newUser = await createNewUser(name, email, password)
