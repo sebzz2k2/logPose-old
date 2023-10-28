@@ -7,7 +7,7 @@
     "start": "node dist/index.js",
     "dev": "ts-node src/index.ts",
     "build": "tsc",
-    "watch": "nodemon --watch 'src/**/*' -e ts,tsx --exec 'ts-node' src/index.ts"
+    "watch": "nodemon --watch './*' -e ts,tsx --exec 'ts-node' src/index.ts"
   },
   "author": "sebinsebzz2002@gmail.com",
   "license": "ISC",

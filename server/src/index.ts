@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express';
 import * as dotenv from 'dotenv';
 import routes from './routes';
 import cors from 'cors';
+const logger = require('../../logger/logger')
 dotenv.config({
   path: __dirname + "/.env"
 });
@@ -19,5 +20,6 @@ app.get('/', (req: Request, res: Response) => {
 const PORT = process.env.SERVER_PORT || 8080;
 
 app.listen(PORT, () => {
-  console.log(`Server is listening on port ${PORT}`);
+  logger.info(`Server is running on port ${PORT}.`);
 });
+
