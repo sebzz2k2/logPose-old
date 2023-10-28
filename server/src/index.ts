@@ -2,12 +2,16 @@ import express, { Request, Response } from 'express';
 import * as dotenv from 'dotenv';
 import routes from './routes';
 import cors from 'cors';
+import loggerMiddleware from '../middleware/logger';
+
 const logger = require('../../logger/logger')
+
 dotenv.config({
   path: __dirname + "/.env"
 });
 
 const app = express();
+app.use(loggerMiddleware);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/api', routes);
