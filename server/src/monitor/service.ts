@@ -97,3 +97,22 @@ export const getAllMonitorsByUserId = async (userId: string): Promise<Monitor[] 
         return false;
     }
 }
+
+export const getMonitorByURLUserAndName = async (url: string, userId: string, name: string): Promise<boolean> => {
+    try {
+        const monitor = await prisma.monitor.findFirst({
+            where: {
+                url,
+                name,
+                ownerId: userId
+            }
+        });
+        if (!monitor) {
+            return false;
+        }
+        return true;
+    } catch (error) {
+        console.error(`Error getting monitor with url ${url} and userId ${userId}: ${error}`);
+        return false;
+    }
+}

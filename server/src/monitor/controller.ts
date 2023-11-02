@@ -1,7 +1,8 @@
 import { Request, Response } from 'express';
-import { createNewMonitor, deleteMonitorById, findUniqueMonitor, getAllMonitorsByUserId, updateMonitorById } from './service';
+import { createNewMonitor, deleteMonitorById, findUniqueMonitor, getAllMonitorsByUserId, updateMonitorById, getMonitorByURLUserAndName } from './service';
 const logger = require('../../../logger/logger')
 import z from 'zod';
+import { get } from 'http';
 
 export const getAllMonitors = async (req: Request, res: Response) => {
     const { user } = req.body;
@@ -46,9 +47,14 @@ export const createMonitor = async (req: Request, res: Response) => {
     if (!interval) {
         return res.status(400).json({ error: 'interval is required' });
     }
-    const monitor = await createNewMonitor(name, url, interval, user.id);
-    logger.debug(monitor)
-    if (!monitor) {
+    const monitor = await getMonitorByURLUserAndName(url, user.id, name)
+    if (monitor) {
+        logger.debug(monitor)
+        return res.status(400).json({ error: 'monitor already exists' });
+    }
+    const newMonitor = await createNewMonitor(name, url, interval, user.id);
+    logger.debug(newMonitor)
+    if (!newMonitor) {
         return res.status(500).json({ error: 'something went wrong' });
     }
     return res.status(200).json({ message: "monitor created successfully" })

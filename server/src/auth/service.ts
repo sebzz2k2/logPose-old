@@ -37,6 +37,9 @@ export const findUniqueUser = async (email: string) => {
 
 export const createNewUser = async (name: string, email: string, password: string) => {
     try {
+
+        const allUser = await prisma.user.findMany()
+        console.log(allUser)
         const hashedPassword = await hashPassword(password)
         const date = new Date()
         const newUser = await prisma.user.create({

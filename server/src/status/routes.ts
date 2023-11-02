@@ -1,9 +1,8 @@
 import { Router } from "express";
-import { getServerStatus } from "./controller";
-import verifyToken from "../../middleware/auth";
+import { getServerStatus } from "./controller"
 
 const router = Router();
 
-router.get("/", verifyToken, getServerStatus);
+router.get("/", getServerStatus);
 
 export default router;

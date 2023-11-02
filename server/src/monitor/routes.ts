@@ -1,12 +1,11 @@
 import { Router } from 'express';
 import { getAllMonitors, getMonitorById, createMonitor, updateMonitor, deleteMonitor } from './controller';
-import verifyToken from '../../middleware/auth';
 const routes = Router();
 
-routes.get('/', verifyToken, getAllMonitors);
-routes.get('/:id', verifyToken, getMonitorById);
-routes.post('/', verifyToken, createMonitor);
-routes.put('/:id', verifyToken, updateMonitor);
-routes.delete('/:id', verifyToken, deleteMonitor);
+routes.get('/', getAllMonitors);
+routes.get('/:id', getMonitorById);
+routes.post('/', createMonitor);
+routes.put('/:id', updateMonitor);
+routes.delete('/:id', deleteMonitor);
 
 export default routes;
