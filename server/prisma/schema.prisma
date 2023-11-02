@@ -27,12 +27,15 @@ model Monitor {
   owner         User            @relation(fields: [ownerId], references: [id])
   ownerId       String
   MonitorStatus MonitorStatus[]
+
+  @@unique([name, url, ownerId])
 }
 
 model MonitorStatus {
   id        String   @id @default(uuid()) @map("uuid")
   status    Boolean
   lastCheck DateTime
+  lastUp    DateTime
   monitor   Monitor  @relation(fields: [monitorId], references: [id])
-  monitorId String
+  monitorId String   @unique
 }
