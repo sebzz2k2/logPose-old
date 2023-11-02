@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { createNewMonitor, deleteMonitorById, findUniqueMonitor, getAllMonitorsByUserId, updateMonitorById } from './service';
 const logger = require('../../../logger/logger')
+import z from 'zod';
 
 export const getAllMonitors = async (req: Request, res: Response) => {
     const { user } = req.body;
@@ -32,12 +33,15 @@ export const createMonitor = async (req: Request, res: Response) => {
     logger.debug(name)
     logger.debug(url)
     logger.debug(interval)
-
-    if (!name) {
-        return res.status(400).json({ error: 'name is required' });
-    }
     if (!url) {
         return res.status(400).json({ error: 'url is required' });
+    }
+    const urlValidation = urlSchema.safeParse(url);
+    if (!urlValidation.success) {
+        return res.status(400).json({ error: 'invalid url' });
+    }
+    if (!name) {
+        return res.status(400).json({ error: 'name is required' });
     }
     if (!interval) {
         return res.status(400).json({ error: 'interval is required' });
@@ -57,6 +61,8 @@ export const updateMonitor = async (req: Request, res: Response) => {
     logger.debug(url)
     logger.debug(interval)
 
+
+
     if (!id) {
         return res.status(400).json({ error: 'id is required' });
     }
@@ -65,6 +71,10 @@ export const updateMonitor = async (req: Request, res: Response) => {
     }
     if (!url) {
         return res.status(400).json({ error: 'url is required' });
+    }
+    const urlValidation = urlSchema.safeParse(url);
+    if (!urlValidation.success) {
+        return res.status(400).json({ error: 'invalid url' });
     }
     if (!interval) {
         return res.status(400).json({ error: 'interval is required' });
@@ -92,5 +102,16 @@ export const deleteMonitor = async (req: Request, res: Response) => {
 }
 
 
-
+const urlSchema = z.string().refine((url) => {
+    return (() => {
+        try {
+            new URL(url);
+            return true;
+        } catch (error) {
+            return false;
+        }
+    })();
+}, {
+    message: "Invalid URL format",
+});
 
