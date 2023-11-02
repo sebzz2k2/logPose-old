@@ -8,22 +8,31 @@ datasource db {
 }
 
 model User {
-  id        Int   @default(autoincrement()) @id
-  email     String   @unique
+  id        Int       @id @default(autoincrement())
+  email     String    @unique
   name      String?
   password  String
-  createdAt DateTime @default(now())
-  updatedAt DateTime 
+  createdAt DateTime  @default(now())
+  updatedAt DateTime
   monitors  Monitor[]
 }
 
 model Monitor {
-    id        Int      @default(autoincrement()) @id
-    name      String
-    url       String
-    interval  Int
-    createdAt DateTime @default(now())
-    updatedAt DateTime
-    owner     User     @relation(fields: [ownerId], references: [id])
-    ownerId   Int
+  id            Int             @id @default(autoincrement())
+  name          String
+  url           String
+  interval      Int
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime
+  owner         User            @relation(fields: [ownerId], references: [id])
+  ownerId       Int
+  MonitorStatus MonitorStatus[]
+}
+
+model MonitorStatus {
+  id        Int      @id @default(autoincrement())
+  status    Boolean
+  lastCheck DateTime
+  monitor   Monitor  @relation(fields: [monitorId], references: [id])
+  monitorId Int
 }
