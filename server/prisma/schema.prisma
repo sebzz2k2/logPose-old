@@ -8,7 +8,7 @@ datasource db {
 }
 
 model User {
-  id        Int       @id @default(autoincrement())
+  id        String    @id @default(uuid()) @map("uuid")
   email     String    @unique
   name      String?
   password  String
@@ -18,21 +18,21 @@ model User {
 }
 
 model Monitor {
-  id            Int             @id @default(autoincrement())
+  id            String          @id @default(uuid()) @map("uuid")
   name          String
   url           String
   interval      Int
   createdAt     DateTime        @default(now())
   updatedAt     DateTime
   owner         User            @relation(fields: [ownerId], references: [id])
-  ownerId       Int
+  ownerId       String
   MonitorStatus MonitorStatus[]
 }
 
 model MonitorStatus {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(uuid()) @map("uuid")
   status    Boolean
   lastCheck DateTime
   monitor   Monitor  @relation(fields: [monitorId], references: [id])
-  monitorId Int
+  monitorId String
 }
