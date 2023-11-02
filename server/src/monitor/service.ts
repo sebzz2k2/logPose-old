@@ -3,7 +3,7 @@ import { Monitor } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-export const deleteMonitorById = async (id: number): Promise<boolean> => {
+export const deleteMonitorById = async (id: string): Promise<boolean> => {
     try {
         const monitor = await prisma.monitor.delete({
             where: {
@@ -20,7 +20,7 @@ export const deleteMonitorById = async (id: number): Promise<boolean> => {
     }
 }
 
-export const updateMonitorById = async (id: number, name: string, url: string, interval: number): Promise<boolean> => {
+export const updateMonitorById = async (id: string, name: string, url: string, interval: number): Promise<boolean> => {
     try {
         const monitor = await prisma.monitor.update({
             where: {
@@ -43,7 +43,7 @@ export const updateMonitorById = async (id: number, name: string, url: string, i
     }
 }
 
-export const createNewMonitor = async (name: string, url: string, interval: number, ownerId: number): Promise<boolean> => {
+export const createNewMonitor = async (name: string, url: string, interval: number, ownerId: string): Promise<boolean> => {
     try {
         const monitor = await prisma.monitor.create({
             data: {
@@ -64,7 +64,7 @@ export const createNewMonitor = async (name: string, url: string, interval: numb
     }
 }
 
-export const findUniqueMonitor = async (id: number): Promise<Monitor | boolean> => {
+export const findUniqueMonitor = async (id: string): Promise<Monitor | boolean> => {
     try {
         const monitor = await prisma.monitor.findUnique({
             where: {
@@ -81,7 +81,7 @@ export const findUniqueMonitor = async (id: number): Promise<Monitor | boolean> 
     }
 }
 
-export const getAllMonitorsByUserId = async (userId: number): Promise<Monitor[] | boolean> => {
+export const getAllMonitorsByUserId = async (userId: string): Promise<Monitor[] | boolean> => {
     try {
         const monitors = await prisma.monitor.findMany({
             where: {

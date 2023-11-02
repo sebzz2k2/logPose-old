@@ -6,7 +6,7 @@ import z from 'zod';
 export const getAllMonitors = async (req: Request, res: Response) => {
     const { user } = req.body;
     logger.debug(user)
-    const monitors = await getAllMonitorsByUserId(parseInt(user.id));
+    const monitors = await getAllMonitorsByUserId(user.id);
     logger.debug(monitors)
     if (!monitors) {
         return res.status(500).json({ error: 'something went wrong' });
@@ -20,7 +20,7 @@ export const getMonitorById = async (req: Request, res: Response) => {
     if (!id) {
         return res.status(400).json({ error: 'id is required' });
     }
-    const monitor = await findUniqueMonitor(parseInt(id));
+    const monitor = await findUniqueMonitor(id);
     logger.debug(monitor)
     if (!monitor) {
         return res.status(404).json({ error: 'monitor not found' });
@@ -79,7 +79,7 @@ export const updateMonitor = async (req: Request, res: Response) => {
     if (!interval) {
         return res.status(400).json({ error: 'interval is required' });
     }
-    const monitor = await updateMonitorById(parseInt(id), name, url, interval);
+    const monitor = await updateMonitorById(id, name, url, interval);
     logger.debug(monitor)
     if (!monitor) {
         return res.status(500).json({ error: 'something went wrong' });
@@ -93,7 +93,7 @@ export const deleteMonitor = async (req: Request, res: Response) => {
     if (!id) {
         return res.status(400).json({ error: 'id is required' });
     }
-    const monitor = await deleteMonitorById(parseInt(id));
+    const monitor = await deleteMonitorById(id);
     logger.debug(monitor)
     if (!monitor) {
         return res.status(500).json({ error: 'something went wrong' });

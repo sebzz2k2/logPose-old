@@ -1,5 +1,5 @@
 export type Monitor = {
-    id: number;
+    id: string;
     name: string;
     url: string;
     interval: number;
