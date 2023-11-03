@@ -5,8 +5,11 @@ import cors from 'cors';
 import loggerMiddleware from '../middleware/logger';
 import { Server } from 'socket.io';
 import http from 'http';
-// import setupCron from './monitorServer';
+import setupCron from './monitorServer';
 import { verifySocket } from "../middleware/auth";
+import { PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient()
 
 const logger = require('../../logger/logger')
 
@@ -33,8 +36,20 @@ const PORT = process.env.SERVER_PORT || 8080;
 
 io.on('connection', (socket) => {
   logger.info('Connected to socket');
-  const user = socket?.data?.user?.id;
-  // const servers = setupCron(user);
+  const userId = socket?.data?.user?.id;
+  setupCron(userId);
+  setInterval(async () => {
+    const userMonitorStatus = await prisma.monitorStatus.findMany({
+      where: {
+        monitor: {
+          owner: {
+            id: userId
+          }
+        }
+      }
+    })
+    socket.emit("servers", JSON.stringify(userMonitorStatus))
+  }, 60000);
   socket.on('disconnect', () => {
     logger.info('Disconnected from socket');
   });
@@ -44,4 +59,3 @@ server.listen(PORT, () => {
   logger.info(`Server is running on port ${PORT}.`);
 });
 
-// setupCron('ffe0ff3f-59e3-4a83-ba85-3526e701d76f')
