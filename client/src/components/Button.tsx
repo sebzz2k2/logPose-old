@@ -1,21 +1,27 @@
 import { FC, ReactNode, useMemo } from "react";
 import { cn } from "@/lib/utils";
 
-type ButtonProps = {
+type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   size?: "sm" | "md" | "lg";
   variant?: "filled" | "outline";
-  type?: "primary" | "secondary";
+  kind?: "primary" | "secondary";
   children: ReactNode;
 };
 
 const defaultProps: ButtonProps = {
   size: "md",
   variant: "filled",
-  type: "primary",
+  kind: "primary",
   children: null,
 };
 
-const Button: FC<ButtonProps> = ({ size, variant, type, children }) => {
+const Button: FC<ButtonProps> = ({
+  size,
+  variant,
+  kind,
+  children,
+  ...rest
+}) => {
   const getSizeClass = useMemo(() => {
     switch (size) {
       case "sm":
@@ -37,18 +43,22 @@ const Button: FC<ButtonProps> = ({ size, variant, type, children }) => {
       "bg-secondary-800 hover:bg-secondary-700 focus:bg-secondary-900 text-white";
     const secondaryOutline = "border border-secondary-900 text-secondary-900";
 
-    if (type === "primary") {
+    if (kind === "primary") {
       return variant === "filled" ? primaryFilled : primaryOutline;
-    } else if (type === "secondary") {
+    } else if (kind === "secondary") {
       return variant === "filled" ? secondaryFilled : secondaryOutline;
     }
 
     return "";
-  }, [type, variant]);
+  }, [kind, variant]);
 
   const buttonClass = cn("rounded", getSizeClass, getVariantClass);
 
-  return <button className={buttonClass}>{children}</button>;
+  return (
+    <button className={buttonClass} {...rest}>
+      {children}
+    </button>
+  );
 };
 
 Button.defaultProps = defaultProps;
