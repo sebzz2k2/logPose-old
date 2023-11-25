@@ -1,18 +1,20 @@
 import { Routes, Route } from "react-router-dom";
-import NotFound from "./pages/Misc/NotFound";
+import NotFound from "./pages/misc/NotFound";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import { ForgotPassword } from "./pages/auth/ForgotPassword";
 const App = () => {
   return (
-    <Routes>
-      <Route path="auth">
-        <Route path="login" element={<Login />} />
-        <Route path="register" element={<Register />} />
-        <Route path="forgot-password" element={<ForgotPassword />} />
-      </Route>
-      <Route path="*" element={<NotFound />} />
-    </Routes>
+    <>
+      <Routes>
+        <Route path="auth">
+          <Route path="login" element={<Login />} />
+          <Route path="register" element={<Register />} />
+          <Route path="forgot-password" element={<ForgotPassword />} />
+        </Route>
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </>
   );
 };
 
