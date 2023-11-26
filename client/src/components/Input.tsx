@@ -11,7 +11,7 @@ const Input: FC<InputProps> = ({ type, label, error, ...rest }) => {
   const [showPassword, setShowPassword] = useState(false);
 
   const inputClass = cn(
-    "border border-secondary-50 rounded-md p-2 focus:outline-none focus:border-primary-300 bg-secondary-900 w-full text-secondary-50",
+    "rounded p-2 focus:outline-none focus:border-primary-300 bg-secondary-900 w-full text-secondary-50",
     { "border-red-500": error }
   );
 

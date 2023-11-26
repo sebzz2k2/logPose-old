@@ -27,7 +27,7 @@ const Button: FC<ButtonProps> = ({
       case "sm":
         return "text-sm px-4 py-2";
       case "md":
-        return "text-base px-6 py-3";
+        return "text-base px-6 py-2";
       case "lg":
         return "text-lg px-8 py-4";
       default:
