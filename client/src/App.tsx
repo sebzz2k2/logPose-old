@@ -3,11 +3,9 @@ import NotFound from "./pages/misc/NotFound";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import { ForgotPassword } from "./pages/auth/ForgotPassword";
-import Logo from "./components/Logo";
 const App = () => {
   return (
     <>
-      <Logo />
       <Routes>
         <Route path="auth">
           <Route path="login" element={<Login />} />
