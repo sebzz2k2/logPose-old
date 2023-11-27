@@ -1,4 +1,5 @@
 import Logo from "@/components/Logo";
+import hero from "@/assets/images/hero.png";
 
 export default function AuthScreen({
   children,
@@ -6,9 +7,12 @@ export default function AuthScreen({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex bg-black h-screen  w-screen justify-between  ">
-      <div className="left w-1/2 bg-primary-500"></div>
-      <div className="right bg-[#161616] w-1/2">
+    <div className="flex  h-screen  w-screen justify-between">
+      <div className="w-1/2 bg-primary-500 flex items-center justify-center flex-col font-bold text-2xl">
+        <img src={hero} alt="hero" className="w-1/2 h-1/2" />
+        <div>We keep you informed</div>
+      </div>
+      <div className="bg-[#161616] w-1/2">
         <div className="header w-full text-end p-6">
           <Logo />
         </div>
