@@ -4,7 +4,7 @@ import { FaUserLarge } from "react-icons/fa6";
 const Navbar = () => {
   const userName = "sebin";
   return (
-    <nav className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+    <nav className="w-screen flex flex-wrap items-center justify-between mx-auto px-8 py-4">
       <Logo />
       <div className="flex flex-row gap-2 items-center">
         <div className="font-normal text-white text-lg">
