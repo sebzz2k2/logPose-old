@@ -17,11 +17,11 @@ const Card: FC<CardProps> = ({ title, subtitle, height, width }) => {
 
   return (
     <div
-      className="flex  justify-center items-center flex-col gap-4 border border-secondary-900 shadow-md rounded-md py-4 px-8 m-4"
+      className="flex  justify-center items-center flex-col gap-2 border border-secondary-900 shadow-md rounded-md py-4 px-2"
       style={cardStyle}
     >
-      <h2 className="text-secondary-50 text-[1.375rem]">{title}</h2>
-      <p className="text-secondary-100 text-[2rem]">{subtitle}</p>
+      <h2 className="text-secondary-50 text-lg">{title}</h2>
+      <p className="text-secondary-100 text-2xl font-bold">{subtitle}</p>
     </div>
   );
 };
