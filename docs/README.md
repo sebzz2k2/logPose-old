@@ -30,12 +30,12 @@ The server uptime monitoring tool is designed as a highly scalable, microservice
 1. **User Management Microservice**
 
    - **Responsibilities**: User authentication, authorization, and user-related functionalities.
-   - **Technology Stack**: Node.js, Express, PostgreSQL, JWT for authentication.
+   - **Technology Stack**: Bun.js, Express, MySql, JWT for authentication.
 
 2. **Server Management Microservice**
 
    - **Responsibilities**: CRUD operations for servers.
-   - **Technology Stack**: Node.js, Express, PostgreSQL.
+   - **Technology Stack**: Bun.js, Express, MySql.
 
 3. **Uptime Monitoring Microservice**
 
