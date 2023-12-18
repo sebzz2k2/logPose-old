@@ -1,0 +1,21 @@
+# Use the base image
+FROM oven/bun:debian as base
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# # Copy the node_modules, bun.lockb, and package.json from the local nakama directory to the container
+# COPY ../backend/nakama/node_modules /app/backend/nakama/node_modules
+# COPY ../backend/nakama/bun.lockb /app/backend/nakama/bun.lockb
+# COPY ../backend/nakama/package.json /app/backend/nakama/package.json
+
+# # Install dependencies if node_modules directory doesn't exist
+# RUN [ ! -d "node_modules" ] && bun install || echo "Using cached node_modules"
+
+# # Copy the entire nakama directory to the container
+# COPY ../backend/nakama /app/backend/nakama
+
+# # Copy the lib directory (which is at the same level as backend) to the container
+# COPY ../lib /app/lib
+
+# Additional commands can be added below as needed
